@@ -3,11 +3,14 @@
 #include <Windows.h>
 #include <thread>
 #include <stdio.h>
+#include <fstream>
+
 
 int main() {
 	ShowWindow(GetConsoleWindow(), SW_HIDE);
 
 	int i = 0;
+
 	while (true) {
 		Sleep(50);
 		time_t seconds = time(NULL);
@@ -17,12 +20,12 @@ int main() {
 
 		(518400 > secFromWeek && secFromWeek >= 0) ? printf("t1 ") : printf("f1 ");
 		(34980 > secFromDay && secFromDay > 34500) ? printf("t2\n") : printf("f2\n");
-		printf("%i  ..  %i\n",secFromDay, secFromWeek);
+		printf("%i  ..  %i\n", secFromDay, secFromWeek);
 
 
 		if (
 			(518400 > secFromWeek && secFromWeek >= 0) // 월~금
-			
+
 			&&
 
 			((34980 > secFromDay && secFromDay > 34500) || //1교시~2교시 사이 8분 -> 예비종 제외
@@ -32,9 +35,9 @@ int main() {
 				(50580 > secFromDay && secFromDay > 50100)) //5~6 사이 10분
 			)
 		{
-			printf("ac\n");
 			i++;
-			i % 2 == 0 ? system("taskkill /f /im chrome.exe && PowerShell -Command \"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('담임선생님과 정보부장의 허락 없이는 실행할 수 없습니다.', '週中 쉬는 시간 감지됨', 'Ok','Error')\"") : system("taskkill /f /im msedge.exe && PowerShell -Command \"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('담임선생님과 정보부장의 허락 없이는 실행할 수 없습니다.', '週中 쉬는 시간 감지됨', 'Ok','Error')\"");
+			i % 2 == 0 ? system("taskkill /f /im chrome.exe && PowerShell -Command \"Start-Process -WindowStyle Hidden PowerShell \"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('담임선생님과 정보부장의 허락 없이는 실행할 수 없습니다.', '週中 쉬는 시간 감지됨', 'Ok','Error')\"\"") : system("taskkill /f /im msedge.exe && PowerShell -Command \"Start-Process -WindowStyle Hidden PowerShell \"Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show('담임선생님과 정보부장의 허락 없이는 실행할 수 없습니다.', '週中 쉬는 시간 감지됨', 'Ok','Error')\"\"");
+			
 		}
 	}
 	return 0;
